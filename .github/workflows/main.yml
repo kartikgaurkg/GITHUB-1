@@ -1,21 +1,23 @@
-name: CICD
+name: deploy
+
 on:
-  push:
-    branches:
-        - main
-
+  push_request:
+    branches: 
+      - master
+      - main
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  deploy:
-    name: on ec2
+  web-deploy:
+    name: 🎉 Deploy
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
-      - name: SSH deploy
-        uses: easingthemes/ssh-deploy@master
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
-          SOURCE: "./"
-          REMOTE_HOST: "ec2-35-154-202-88.ap-south-1.compute.amazonaws.com"
-          REMOTE_USER: "ubuntu"
-          TARGET: "/home/ubuntu/git/ACTIONS/*"
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v2
+
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.1.0
+      with:
+        server: 34.220.137.151
+        username: ubuntu
+        password: ${{ secrets.SECRET }}
+        server-dir: "var/www/html"
