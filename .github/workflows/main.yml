@@ -16,8 +16,9 @@ jobs:
 
     - name: 📂 Sync files
       uses: easingthemes/ssh-deploy@main
-      with:
-        server: 34.220.137.151
-        username: ubuntu
-        password: ${{ secrets.SECRET }}
-        server-dir: "var/www/html/"
+      env:
+        SSH_PRIVATE_KEY: ${{ secrets.KEY }}
+        REMOTE_HOST: ${{ secrets.HOST }}
+        REMOTE_USER: ${{ secrets.USER }}
+        TARGET: /var/www/html/
+        
