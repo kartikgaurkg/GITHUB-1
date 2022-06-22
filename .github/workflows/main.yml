@@ -20,4 +20,4 @@ jobs:
         server: 34.220.137.151
         username: ubuntu
         password: ${{ secrets.SECRET }}
-        server-dir: "var/www/html"
+        server-dir: "var/www/html/"
