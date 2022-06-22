@@ -1,0 +1,21 @@
+name: CICD
+on:
+  push:
+    branches:
+        - main
+
+jobs:
+  deploy:
+    name: on ec2
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: SSH deploy
+        uses: easingthemes/ssh-deploy@master
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
+          SOURCE: "./"
+          REMOTE_HOST: "ec2-35-154-202-88.ap-south-1.compute.amazonaws.com"
+          REMOTE_USER: "ubuntu"
+          TARGET: "/home/ubuntu/git/ACTIONS/*"
