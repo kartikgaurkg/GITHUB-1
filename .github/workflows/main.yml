@@ -19,5 +19,6 @@ jobs:
         SSH_PRIVATE_KEY: ${{ secrets.KEY }}
         REMOTE_HOST: ${{ secrets.HOST }}
         REMOTE_USER: ${{ secrets.USER }}
+        SOURCE: GITHUB-1/task
         TARGET: /var/www/html/
         
